@@ -21,6 +21,7 @@ export default class GameScene extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
         this.shapes = this.physics.add.group();
         this.physics.add.overlap(this.player, this.shapes, this.collectShape, null, this);
+        this.physics.add.collider(this.shapes, this.ground, this.onBounce, null, this);
         this.collected = [];
         this.timeLeft = 60;
 
@@ -74,15 +75,19 @@ export default class GameScene extends Phaser.Scene {
         const tipo = tipos[Phaser.Math.Between(0, 2)];
         const x = Phaser.Math.Between(50, 750);
 
+        const puntos = { triangle: 20, square: 30, diamond: 50 };
+
         const figura = this.shapes.create(x, -30, tipo);
         figura.setDisplaySize(40, 40);
         figura.tipo = tipo;
+        figura.hp = puntos[tipo];
         figura.setVelocityY(200);
+        figura.setBounce(0.6);
     }
 
     collectShape(player, figura) {
         const puntos = { triangle: 20, square: 30, diamond: 50 };
-        this.score += puntos[figura.tipo];
+        this.score += figura.hp;
         this.scoreTxt.setText("Puntaje: " + this.score);
         this.collected.push(figura.tipo);
         this.checkWin();
@@ -106,6 +111,13 @@ export default class GameScene extends Phaser.Scene {
 
     if (this.timeLeft <= 0) {
         this.scene.start("EndScene", { won: false, score: this.score });
+    }
+    }
+
+    onBounce(ground, figura) {
+    figura.hp -= 5;
+    if (figura.hp <= 0) {
+        figura.destroy();
     }
     }
 }

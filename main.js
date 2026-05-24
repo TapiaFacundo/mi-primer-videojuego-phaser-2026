@@ -1,3 +1,4 @@
+import MenuScene from "./scenes/MenuScene.js";
 import GameScene from "./scenes/GameScene.js";
 import EndScene from "./scenes/EndScene.js";
 
@@ -12,7 +13,7 @@ import EndScene from "./scenes/EndScene.js";
         debug: false
       }
     },
-    scene: [GameScene, EndScene]
+    scene: [MenuScene, GameScene, EndScene]
   };
 
 new Phaser.Game(config);
