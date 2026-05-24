@@ -15,7 +15,7 @@ export default class GameScene extends Phaser.Scene {
     create() {
         this.score = 0;
         this.collected = [];
-        this.timeLeft = 60;
+        this.timeLeft = 10;
 
         this.add.image(400, 300, "cielo").setDisplaySize(800, 600);
 
