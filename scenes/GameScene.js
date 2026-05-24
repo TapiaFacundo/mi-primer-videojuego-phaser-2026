@@ -95,7 +95,7 @@ export default class GameScene extends Phaser.Scene {
         const diamonds = this.collected.filter(t => t === "diamond").length;
 
         if (triangles >= 2 && squares >= 2 && diamonds >= 2 && this.score >= 100) {
-            console.log("ganaste!");
+            this.scene.start("EndScene", { won: true, score: this.score });
         }
     }
 
@@ -105,7 +105,7 @@ export default class GameScene extends Phaser.Scene {
     this.timerTxt.setText("Tiempo: " + this.timeLeft);
 
     if (this.timeLeft <= 0) {
-        console.log("perdiste!");
+        this.scene.start("EndScene", { won: false, score: this.score });
     }
     }
 }
