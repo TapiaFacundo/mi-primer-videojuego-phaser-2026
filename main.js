@@ -9,7 +9,7 @@ import EndScene from "./scenes/EndScene.js";
     physics: {
       default: "arcade",
       arcade: {
-        gravity: { y: 300 },
+        gravity: { y: 600 },
         debug: false
       }
     },
